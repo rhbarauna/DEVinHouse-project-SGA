@@ -1,5 +1,6 @@
-import React from 'react'
+import React from 'react';
 import Input from './Input';
+import PropTypes from 'prop-types';
 
 const isSafari = !/\b(Chrome)\b/.test(navigator.userAgent);
 
@@ -137,6 +138,13 @@ class InputDate extends React.Component {
       />
     )
   }
+}
+InputDate.porpTypes = {
+  id:       PropTypes.string.isRequired,
+  name:     PropTypes.string.isRequired,
+  label:    PropTypes.string,
+  value:    PropTypes.string,
+  onChange: PropTypes.func
 }
 
 export default InputDate;

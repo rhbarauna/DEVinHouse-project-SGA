@@ -16,7 +16,12 @@ class Checkbox extends React.Component {
     const {id, name, label, checked} = this.props;
     return (
       <>
-        <input id={id} name={name} type="checkbox" checked={checked} onChange={this.handleValueChange.bind(this)}/>
+        <input
+          id={id}
+          name={name}
+          type="checkbox"
+          checked={checked}
+          onChange={this.handleValueChange.bind(this)}/>
         <label htmlFor={id}>{label}</label>
       </>
     );
@@ -24,9 +29,11 @@ class Checkbox extends React.Component {
 }
 
 Checkbox.propTypes = {
-  id:     PropTypes.string.isRequired,
-  name:   PropTypes.string.isRequired,
-  label:  PropTypes.string,
+  id:       PropTypes.string.isRequired,
+  name:     PropTypes.string.isRequired,
+  label:    PropTypes.string,
+  checked:  PropTypes.bool,
+  onChange: PropTypes.func
 }
 
 export  default Checkbox

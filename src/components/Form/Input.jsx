@@ -45,6 +45,7 @@ Input.propTypes = {
   type:       PropTypes.oneOf(['text', 'date', 'phone', 'email']).isRequired,
   label:      PropTypes.string,
   transform:  PropTypes.func,
+  onChange:   PropTypes.func
 }
 
 export default Input;

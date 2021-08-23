@@ -1,21 +1,23 @@
-import React from 'react'
+import React from 'react';
 import Input from './Input';
+import PropTypes from 'prop-types';
 
 class InputPhone extends React.Component {
 
   formattedProps(){
-    if(!this.props.value) {
+    const { value } = this.props
+    if(!value) {
       return "";
     }
 
-    return this.formatPhone(this.props.value)
+    return this.formatPhone(value)
   }
 
   formatPhone(e) {
     let digits = e.replace(/[^\d]/g,'')
     let ddd = digits.slice(0,2);
     
-    if(e.length < this.props.length) {
+    if(e.length < this.props.value.length) {
       return e.slice(0,[e.length-1]);
     }
 
@@ -57,6 +59,13 @@ class InputPhone extends React.Component {
       />
     )
   }
+}
+
+InputPhone.propTypes = {
+  id:         PropTypes.string.isRequired,
+  name:       PropTypes.string.isRequired,
+  label:      PropTypes.string,
+  onChange:   PropTypes.func
 }
 
 export default InputPhone;
