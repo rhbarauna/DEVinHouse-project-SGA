@@ -1,50 +1,43 @@
 import React from 'react'
+import Filter from '../../components/Form/Filter';
 import ListRow from './components/ListRow'
-
-const students = [
-  { 
-    id:0,
-    name: "Rhenato Francisco Baraúna"
-  },
-  { 
-    id:1,
-    name: "Michelle Barboza da Silva Baraúna"
-  }
-]
 
 class StudentListPage extends React.Component {
   state = {
-    filteredStudents: students
+    students:[],
+    filteredStudents: []
   };
 
+  async componentDidMount() {
+    try {
+      const response = await fetch("/api/students");
+      const responseJson = await response.json();
+      const students = responseJson.students;
+      
+      this.setState({
+        students: students,
+        filteredStudents: students
+      })
+
+    } catch(error){
+      console.error(error.message);
+    }
+  }
+
   onDelete = (student_id) => {
-    const remainingStudents = students.filter(s => s.id !== student_id);
+    // const remainingStudents = students.filter(s => s.id !== student_id);
     
-    this.setState({
-      students: remainingStudents
-    })
+    // this.setState({
+    //   students: remainingStudents
+    // })
   }
 
   onEdit = (student) => {
   }
 
-  applyFilter(e) {
-    const filter = e.target.value.trim();
-
-    if(filter.length < 1) {
-      return;
-    }
-
-    const filterToSmall = e.target.value.toLowerCase();
-
-    const filtered = students.filter(
-      student => {
-        const nameToSmall = student.name.toLowerCase();
-        return nameToSmall.includes(filterToSmall);
-      }
-    )
+  receiveFilteredValues(e) {
     this.setState({
-      filteredStudents: filtered
+      filteredStudents: e
     });
   }
 
@@ -55,12 +48,14 @@ class StudentListPage extends React.Component {
           <h2>Lista de Alunos</h2>
         </header>
         <main>
-          <input 
-            type="text" 
-            name="students_filter" 
+          <Filter 
             id="st_filter" 
-            placeholder="Filtrar alunos" 
-            onChange={this.applyFilter.bind(this)}/>
+            name="studentsFilter"
+            placeholder="Filtrar alunos"
+            propsToFilter={["name", "id"]}
+            onFilter={this.receiveFilteredValues.bind(this)}
+            options={this.state.students}
+          />
           <ul>
             {
               this.state.filteredStudents.map(

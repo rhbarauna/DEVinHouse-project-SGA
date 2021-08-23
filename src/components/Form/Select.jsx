@@ -44,6 +44,7 @@ class Select extends React.Component {
           <Filter
             id={`${name}FilterID`}
             name={`${name}FilterID`}
+            propsToFilter={["value", "label"]}
             options={this.props.options} 
             onFilter={this.applyFilter.bind(this)}
           />

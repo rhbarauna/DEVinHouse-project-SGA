@@ -5,9 +5,9 @@ import InputText from './InputText';
 class Filter extends React.Component {
   _filterPredicate(filter) {
     return op => {
-      const value = `${op.value}`.toLowerCase();
-      const label = `${op.label}`.toLowerCase();
-      return value.includes(filter) || label.includes(filter);
+      return this.props.propsToFilter.some(
+        prop => `${op[prop]}`.toLowerCase().includes(filter)
+      );
     };
   }
 
@@ -23,8 +23,8 @@ class Filter extends React.Component {
   }
 
   render() {
-    const {id, name} = this.props;
-    return <InputText id={id} name={name} onChange={this.applyFilter.bind(this)} />
+    const {id, name, placeholder} = this.props;
+    return <InputText id={id} name={name} placeholder={placeholder} onChange={this.applyFilter.bind(this)} />
   }
 }
 
@@ -32,6 +32,7 @@ Filter.propTypes = {
   id:       PropTypes.string.isRequired,
   name:     PropTypes.string.isRequired,
   options:  PropTypes.array.isRequired,
+  propsToFilter: PropTypes.array.isRequired,
   onFilter: PropTypes.func.isRequired,
 }
 
