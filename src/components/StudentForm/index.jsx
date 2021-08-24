@@ -22,6 +22,7 @@ class StudentForm extends React.Component {
     super(props)
     this.state = {};
   }
+  
 
   handleFormInputChange(e) {
     const inputName = e.name;

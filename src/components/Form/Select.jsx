@@ -7,7 +7,6 @@ class Select extends React.Component {
   constructor(props) {
     super(props)
     this.fullOptions = props.options ?? []
-
     this.state = {
       value: props.value,
       options: this.fullOptions
